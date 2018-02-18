@@ -22,6 +22,7 @@ public class CompanyBean {
 	@ManagedProperty(value = "#{param.compId}")
 	private String id;
 	
+	//test
 	//@EJB
 	CompanyDao companyDao = new CompanyDaoImpl();
 	
