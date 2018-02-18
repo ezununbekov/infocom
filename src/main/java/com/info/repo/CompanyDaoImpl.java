@@ -1,6 +1,7 @@
 package com.info.repo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -10,12 +11,14 @@ import com.info.model.Company;
 public class CompanyDaoImpl implements CompanyDao{
 	private static List<Company> all = new ArrayList<>();
 	static{
+		Date licdate = new Date();
+		Date certdate = new Date();
 		all.add(new Company(1, 2, 2, "Beeline", "Veon", "fax",
-				"Fon", "wp.com", "lic21", "l-date", "cert", 
-				"cert-date", "adrs"));
+				"Fon", "wp.com", "lic21", licdate, "cert", 
+				certdate, "adrs"));
 		all.add(new Company(2, 1, 3, "MGCM", "unknwn", "fax2",
-				"Fon2", "megacom.com", "lic24", "l24-date", "cert24", 
-				"cert24-date", "adrs24"));
+				"Fon2", "megacom.com", "lic24", licdate, "cert24", 
+				certdate, "adrs24"));
 	}
 	
 	private Company company;
