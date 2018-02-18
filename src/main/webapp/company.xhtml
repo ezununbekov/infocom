@@ -37,13 +37,17 @@
 			<h:outputText value="#{companyBean.company.license}"></h:outputText>
 			
 			<h:outputLabel value = "License date" style="font-weight:bold"/>
-			<h:outputText value="#{companyBean.company.licensedate}"></h:outputText>
+			<h:outputText value="#{companyBean.company.licensedate}">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+			</h:outputText>
 			
 			<h:outputLabel value = "Certificate" style="font-weight:bold"/>
 			<h:outputText value="#{companyBean.company.certificate}"></h:outputText>
 			
 			<h:outputLabel value = "Certificate date" style="font-weight:bold"/>
-			<h:outputText value="#{companyBean.company.certdate}"></h:outputText>
+			<h:outputText value="#{companyBean.company.certdate}">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+			</h:outputText>
 			
 			<h:outputLabel value = "Address" style="font-weight:bold"/>
 			<h:outputText value="#{companyBean.company.address}"></h:outputText>

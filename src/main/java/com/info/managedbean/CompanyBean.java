@@ -58,7 +58,8 @@ public class CompanyBean {
 
 	public String addNewCompany(){	
 		companyDao.addCompany(company);
-		return "companies.xhtml?faces-redirect=true";
+		//return "companies.xhtml?faces-redirect=true";
+		return "company.xhtml?faces-redirect=true&compId="+company.getId();
 	}
 	
 	public String updateCompany(){

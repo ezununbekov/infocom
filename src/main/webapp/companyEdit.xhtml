@@ -16,45 +16,72 @@
 	<br/>
 	<br/>
 	<h:form>
-		<h:panelGrid columns = "2">
+		<h:panelGrid columns = "3">
 			<h:outputLabel for = "id" value = "ID" style="font-weight:bold"/>
 			<h:inputText id = "id" value="#{companyBean.company.id}"/>
+			<h:message for="id" style="color:red"></h:message>
 		
 			<h:outputLabel for = "name" value = "Name" style="font-weight:bold"/>
-			<h:inputText id = "name" value="#{companyBean.company.name}"/>	
+			<h:inputText id = "name" value="#{companyBean.company.name}"
+				required="true" requiredMessage="Company name is required"/>
+			<h:message for="name" style="color:red"></h:message>		
 		
 			<h:outputLabel for = "manager" value = "Manager" style="font-weight:bold"/>
-			<h:inputText id = "manager" value="#{companyBean.company.managername}"/>
+			<h:inputText id = "manager" value="#{companyBean.company.managername}"
+				required="true" requiredMessage="Manager name is required"/>
+			<h:message for="manager" style="color:red"></h:message>	
 			
 			<h:outputLabel for = "own" value = "Ownership" style="font-weight:bold"/>
-			<h:inputText id = "own" value="#{companyBean.company.ownership}"/>
+			<h:inputText id = "own" value="#{companyBean.company.ownership}"
+				required="true" requiredMessage="Ownership is required"/>
+			<h:message for="own" style="color:red"></h:message>	
 			
 			<h:outputLabel for = "leg" value = "Legal form" style="font-weight:bold"/>
-			<h:inputText id = "leg" value="#{companyBean.company.legalform}"/>
+			<h:inputText id = "leg" value="#{companyBean.company.legalform}"
+				required="true" requiredMessage="Legal form is required"/>
+			<h:message for="leg" style="color:red"></h:message>	
 			
 			<h:outputLabel for = "fax" value = "Fax" style="font-weight:bold"/>
 			<h:inputText id = "fax" value="#{companyBean.company.fax}"/>
+			<h:message for="fax" style="color:red"></h:message>
 			
 			<h:outputLabel for = "phone" value = "Phone" style="font-weight:bold"/>
-			<h:inputText id = "phone" value="#{companyBean.company.phone}"/>
+			<h:inputText id = "phone" value="#{companyBean.company.phone}"
+				required="true" requiredMessage="Phone number is required"/>
+			<h:message for="phone" style="color:red"></h:message>	
 			
 			<h:outputLabel for = "web" value = "Web" style="font-weight:bold"/>
 			<h:inputText id = "web" value="#{companyBean.company.webpage}"/>
+			<h:message for="web" style="color:red"></h:message>
 			
 			<h:outputLabel for = "lic" value = "License" style="font-weight:bold"/>
-			<h:inputText id = "lic" value="#{companyBean.company.license}"/>
+			<h:inputText id = "lic" value="#{companyBean.company.license}"
+				required="true" requiredMessage="License is required"/>
+			<h:message for="lic" style="color:red"></h:message>	
 			
 			<h:outputLabel for = "licdate" value = "License date" style="font-weight:bold"/>
-			<h:inputText id = "licdate" value="#{companyBean.company.licensedate}"/>
+			<h:inputText id = "licdate" value="#{companyBean.company.licensedate}"
+				required="true" requiredMessage="License date is required">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+			</h:inputText>	
+			<h:message for="licdate" style="color:red"></h:message>	
 			
 			<h:outputLabel for = "cert" value = "Certificate" style="font-weight:bold"/>
-			<h:inputText id = "cert" value="#{companyBean.company.certificate}"/>
+			<h:inputText id = "cert" value="#{companyBean.company.certificate}"
+				required="true" requiredMessage="Certificate is required"/>
+			<h:message for="cert" style="color:red"></h:message>	
 			
 			<h:outputLabel for = "certdate" value = "Certificate date" style="font-weight:bold"/>
-			<h:inputText id = "certdate" value="#{companyBean.company.certdate}"/>
+			<h:inputText id = "certdate" value="#{companyBean.company.certdate}"
+				required="true" requiredMessage="Certificate date is required">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+			</h:inputText>	
+			<h:message for="certdate" style="color:red"></h:message>	
 			
 			<h:outputLabel for = "address" value = "Address" style="font-weight:bold"/>
-			<h:inputText id = "address" value="#{companyBean.company.address}"/>
+			<h:inputText id = "address" value="#{companyBean.company.address}"
+				required="true" requiredMessage="Address is required"/>
+			<h:message for="address" style="color:red"></h:message>	
 		</h:panelGrid>
 		<br/>
 		<h:commandButton value="Update" action="#{companyBean.updateCompany}" 
