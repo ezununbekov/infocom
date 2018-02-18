@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>New company</title>
+</h:head>
+<h:body>
+	<h2>
+		<h:outputText value="Add company"/>
+	</h2>
+	<h:link value="Home" outcome="companies.xhtml"/>
+	<br/>
+	<br/>
+	<h:form>
+		<h:panelGrid columns = "2">
+			<h:outputLabel for = "id" value = "ID" style="font-weight:bold"/>
+			<h:inputText id = "id" value="#{companyBean.company.id}"/>
+		
+			<h:outputLabel for = "name" value = "Name" style="font-weight:bold"/>
+			<h:inputText id = "name" value="#{companyBean.company.name}"/>	
+		
+			<h:outputLabel for = "manager" value = "Manager" style="font-weight:bold"/>
+			<h:inputText id = "manager" value="#{companyBean.company.managername}"/>
+			
+			<h:outputLabel for = "own" value = "Ownership" style="font-weight:bold"/>
+			<h:inputText id = "own" value="#{companyBean.company.ownership}"/>
+			
+			<h:outputLabel for = "leg" value = "Legal form" style="font-weight:bold"/>
+			<h:inputText id = "leg" value="#{companyBean.company.legalform}"/>
+			
+			<h:outputLabel for = "fax" value = "Fax" style="font-weight:bold"/>
+			<h:inputText id = "fax" value="#{companyBean.company.fax}"/>
+			
+			<h:outputLabel for = "phone" value = "Phone" style="font-weight:bold"/>
+			<h:inputText id = "phone" value="#{companyBean.company.phone}"/>
+			
+			<h:outputLabel for = "web" value = "Web" style="font-weight:bold"/>
+			<h:inputText id = "web" value="#{companyBean.company.webpage}"/>
+			
+			<h:outputLabel for = "lic" value = "License" style="font-weight:bold"/>
+			<h:inputText id = "lic" value="#{companyBean.company.license}"/>
+			
+			<h:outputLabel for = "licdate" value = "License date" style="font-weight:bold"/>
+			<h:inputText id = "licdate" value="#{companyBean.company.licensedate}"/>
+			
+			<h:outputLabel for = "cert" value = "Certificate" style="font-weight:bold"/>
+			<h:inputText id = "cert" value="#{companyBean.company.certificate}"/>
+			
+			<h:outputLabel for = "certdate" value = "Certificate date" style="font-weight:bold"/>
+			<h:inputText id = "certdate" value="#{companyBean.company.certdate}"/>
+			
+			<h:outputLabel for = "address" value = "Address" style="font-weight:bold"/>
+			<h:inputText id = "address" value="#{companyBean.company.address}"/>
+		</h:panelGrid>
+		<br/>
+		<h:commandButton value="Add" action="#{companyBean.addNewCompany}" />
+	</h:form>
+</h:body>
+</html>

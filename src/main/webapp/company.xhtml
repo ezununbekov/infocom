@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Company</title>
+</h:head>
+<h:body>
+	<h2>
+		<h:outputText value="#{companyBean.company.name}"></h:outputText>
+	</h2>
+	<h:link value="Home" outcome="companies.xhtml"/>
+	<br/>
+	<br/>
+	<h:form>
+		<h:panelGrid columns = "2">
+			<h:outputLabel value = "Manager" style="font-weight:bold"/>
+			<h:outputText value="#{companyBean.company.managername}"></h:outputText>
+			
+			<h:outputLabel value = "Ownership" style="font-weight:bold"/>
+			<h:outputText value="#{companyBean.company.ownership}"></h:outputText>
+			
+			<h:outputLabel value = "Legal form" style="font-weight:bold"/>
+			<h:outputText value="#{companyBean.company.legalform}"></h:outputText>
+			
+			<h:outputLabel value = "Fax" style="font-weight:bold"/>
+			<h:outputText value="#{companyBean.company.fax}"></h:outputText>
+			
+			<h:outputLabel value = "Phone" style="font-weight:bold"/>
+			<h:outputText value="#{companyBean.company.phone}"></h:outputText>
+			
+			<h:outputLabel value = "Web" style="font-weight:bold"/>
+			<h:outputText value="#{companyBean.company.webpage}"></h:outputText>
+			
+			<h:outputLabel value = "License" style="font-weight:bold"/>
+			<h:outputText value="#{companyBean.company.license}"></h:outputText>
+			
+			<h:outputLabel value = "License date" style="font-weight:bold"/>
+			<h:outputText value="#{companyBean.company.licensedate}"></h:outputText>
+			
+			<h:outputLabel value = "Certificate" style="font-weight:bold"/>
+			<h:outputText value="#{companyBean.company.certificate}"></h:outputText>
+			
+			<h:outputLabel value = "Certificate date" style="font-weight:bold"/>
+			<h:outputText value="#{companyBean.company.certdate}"></h:outputText>
+			
+			<h:outputLabel value = "Address" style="font-weight:bold"/>
+			<h:outputText value="#{companyBean.company.address}"></h:outputText>
+		</h:panelGrid>
+		<br/>
+		<h:link value="Edit" outcome="companyEdit.xhtml"><f:param name = "compId" value = "#{companyBean.company.id}" /></h:link>
+		&nbsp;
+		<h:commandButton value="Delete" action="#{companyBean.deleteCompany}" 
+				onclick="if (! confirm('Delete #{companyBean.company.name}?') ) { return false;}; return true; ">
+			<f:param name = "compId" value = "#{companyBean.company.id}" />
+		</h:commandButton>
+	</h:form>
+</h:body>
+</html>
