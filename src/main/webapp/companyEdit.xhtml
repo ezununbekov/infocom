@@ -32,13 +32,17 @@
 			<h:message for="manager" style="color:red"></h:message>	
 			
 			<h:outputLabel for = "own" value = "Ownership" style="font-weight:bold"/>
-			<h:inputText id = "own" value="#{companyBean.company.ownership}"
-				required="true" requiredMessage="Ownership is required"/>
+			<h:selectOneMenu id = "own" value="#{companyBean.company.ownership}"
+				required="true" requiredMessage="Ownership is required">
+				<f:selectItems value = "#{ownership.all}" var="owsh" itemValue="#{owsh.id}" itemLabel = "#{owsh.description}" />
+			</h:selectOneMenu>	
 			<h:message for="own" style="color:red"></h:message>	
 			
 			<h:outputLabel for = "leg" value = "Legal form" style="font-weight:bold"/>
-			<h:inputText id = "leg" value="#{companyBean.company.legalform}"
-				required="true" requiredMessage="Legal form is required"/>
+			<h:selectOneMenu id = "leg" value="#{companyBean.company.legalform}"
+				required="true" requiredMessage="Legal form is required">
+				<f:selectItems value="#{legalform.all}" var="frm" itemValue="#{frm.id}" itemLabel="#{frm.description}"/>
+			</h:selectOneMenu>	
 			<h:message for="leg" style="color:red"></h:message>	
 			
 			<h:outputLabel for = "fax" value = "Fax" style="font-weight:bold"/>
