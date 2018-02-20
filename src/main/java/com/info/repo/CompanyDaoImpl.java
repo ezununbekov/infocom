@@ -88,23 +88,15 @@ public class CompanyDaoImpl implements CompanyDao{
 		try{
 			session = SessionFactoryUtil.buildSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Company c = (Company)session.load(Company.class, company.getId());
+			session.update(company);
 			transaction.commit();
-			
-			//company.setId(0);
-			c = company;
-			transaction = session.beginTransaction();
-			session.update(c);
-			transaction.commit();
-		} catch (ConstraintViolationException cve){
-			if(transaction != null)
-				transaction.rollback();
-			throw cve;
 		} catch(Exception e){
 			e.printStackTrace();
 			//TODO: add logger
 			if(transaction != null)
 				transaction.rollback();
+			if(e.getCause().getClass().equals(ConstraintViolationException.class))
+				throw new ConstraintViolationException(e.getCause().getCause().getMessage(), (java.sql.SQLException)e.getCause().getCause(), null);
 		} finally{
 			if(session != null)
 				session.close();

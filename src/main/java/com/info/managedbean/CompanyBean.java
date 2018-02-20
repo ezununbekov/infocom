@@ -66,22 +66,17 @@ public class CompanyBean {
 			FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("nonunique", "1");
 			return "companyAdd.xhtml";
 		} 
-		//return "companies.xhtml?faces-redirect=true";
 		return "company.xhtml?faces-redirect=true&compId="+company.getId();
 	}
 	
 	public String updateCompany(){
-		String id = "";
 		try{
-//			id = getId();
-//			company.setId(Integer.valueOf(id));
 			companyDao.updateCompany(company);
 		} catch(ConstraintViolationException cve){
 			FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("nonunique", "1");
-			return "companyAdd.xhtml";
+			return "companyEdit.xhtml";
 		}
-		//this.setId(String.valueOf(company.getId()));
-		return "company.xhtml?faces-redirect=true&compId="+id;
+		return "company.xhtml?faces-redirect=true&compId="+company.getId();
 	}
 	
 	public String deleteCompany(){

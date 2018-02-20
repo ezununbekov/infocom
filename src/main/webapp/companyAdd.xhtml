@@ -64,7 +64,8 @@
 				<c:otherwise>
 					<h:message for="lic" style="color:red"></h:message>
 				</c:otherwise>
-			</c:choose>	
+			</c:choose>
+			
 			<h:outputLabel for = "licdate" value = "License date" style="font-weight:bold"/>
 			<h:inputText id = "licdate" value="#{companyBean.company.licensedate}" p:placeholder="ddmmyyyy"
 				required="true" requiredMessage="License date is required">

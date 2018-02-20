@@ -12,7 +12,9 @@ import com.info.model.Ownership;
 public class SessionFactoryUtil {
 	private static SessionFactory sessionFactory;
 	
-	public static SessionFactory buildSessionFactory(){
+	private SessionFactoryUtil(){}
+	
+	static{
 		Configuration configuration = new Configuration()
 				.configure("hibernate.cfg.xml").addAnnotatedClass(Legalform.class)
 											   .addAnnotatedClass(Ownership.class)
@@ -20,6 +22,9 @@ public class SessionFactoryUtil {
 		ServiceRegistry serviceRegistry =
 				new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 		sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+	}
+	
+	public static SessionFactory buildSessionFactory(){
 		return sessionFactory;
 	}
 }
