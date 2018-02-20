@@ -10,48 +10,36 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-//@Entity
-//@Table(name = "company")
+@Entity
+@Table(name = "company")
 public class Company {
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
-	//@Column
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	//@Column
 	private int ownership;
 	
-	//@Column
 	private int legalform;
 	
-	//@Column
 	private String name;
 	
-	//@Column
 	private String managername;
 	
-	//@Column
 	private String fax;
 	
-	//@Column
 	private String phone;
 	
-	//@Column
 	private String webpage;
 	
-	//@Column
+	@Column(unique=true)
 	private String license;
 	
-	//@Column
 	private Date licensedate;
 	
-	//@Column
 	private String certificate;
 	
-	//@Column
 	private Date certdate;
 	
-	//@Column
 	private String address;
 
 	public Company() {

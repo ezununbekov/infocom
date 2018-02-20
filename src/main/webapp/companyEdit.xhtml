@@ -17,10 +17,6 @@
 	<br/>
 	<h:form>
 		<h:panelGrid columns = "3">
-			<h:outputLabel for = "id" value = "ID" style="font-weight:bold"/>
-			<h:inputText id = "id" value="#{companyBean.company.id}"/>
-			<h:message for="id" style="color:red"></h:message>
-		
 			<h:outputLabel for = "name" value = "Name" style="font-weight:bold"/>
 			<h:inputText id = "name" value="#{companyBean.company.name}"
 				required="true" requiredMessage="Company name is required"/>
@@ -89,7 +85,9 @@
 		</h:panelGrid>
 		<br/>
 		<h:commandButton value="Update" action="#{companyBean.updateCompany}" 
-			onclick="if (! confirm('Update #{companyBean.company.name}?') ) { return false;}; return true; "/>
+			onclick="if (! confirm('Update #{companyBean.company.name}?') ) { return false;}; return true; ">
+			<f:param name = "compId" value = "#{companyBean.company.id}" />
+		</h:commandButton>	
 	</h:form>
 </h:body>
 </html>

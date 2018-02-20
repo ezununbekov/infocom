@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
 	<title>New company</title>
 </h:head>
@@ -16,10 +17,6 @@
 	<br/>
 	<h:form>
 		<h:panelGrid columns = "3">
-			<h:outputLabel for = "id" value = "ID" style="font-weight:bold"/>
-			<h:inputText id = "id" value="#{companyBean.company.id}"/>
-			<h:message for="id" style="color:red"></h:message>
-		
 			<h:outputLabel for = "name" value = "Name" style="font-weight:bold"/>
 			<h:inputText id = "name" value="#{companyBean.company.name}" p:placeholder="Name of company"  
 				required="true" requiredMessage="Company name is required"/>
@@ -59,9 +56,15 @@
 			
 			<h:outputLabel for = "lic" value = "License" style="font-weight:bold"/>
 			<h:inputText id = "lic" value="#{companyBean.company.license}" p:placeholder="Unique license number"
-				required="true" requiredMessage="License is required"/>
-			<h:message for="lic" style="color:red"></h:message>
-			
+				required="true" requiredMessage="License is required"/>	
+			<c:choose>
+				<c:when test="#{not empty nonunique}">
+					<h:outputText value="License number is not unique"  style="color:red"/>
+				</c:when>
+				<c:otherwise>
+					<h:message for="lic" style="color:red"></h:message>
+				</c:otherwise>
+			</c:choose>	
 			<h:outputLabel for = "licdate" value = "License date" style="font-weight:bold"/>
 			<h:inputText id = "licdate" value="#{companyBean.company.licensedate}" p:placeholder="ddmmyyyy"
 				required="true" requiredMessage="License date is required">
