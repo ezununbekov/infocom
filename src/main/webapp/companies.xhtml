@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
 	<title>Companies</title>
 </h:head>
@@ -10,27 +11,34 @@
 	<h2>
 		<h:outputText value="All companies"></h:outputText>
 	</h2>
-		<h:dataTable value="#{companyBean.companies}" var="c">
-			<h:column align="right">
-				<f:facet name="header">Name</f:facet>
-				<h:outputText value="#{c.name}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Manager</f:facet>
-				<h:outputText value="#{c.managername}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Web</f:facet>
-				<h:outputText value="#{c.webpage}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header"></f:facet>
-				<h:link outcome="company.xhtml" value="Details">
-					<f:param name = "compId" value = "#{c.id}" />
-				</h:link>	
-			</h:column>
-		</h:dataTable>
-	<br/>	
-	<h:link value="Add" outcome="companyAdd.xhtml" />	
+	<c:choose>
+		<c:when test = "#{not empty companyBean.companies}">
+			<h:dataTable value="#{companyBean.companies}" var="c">
+				<h:column align="right">
+					<f:facet name="header">Name</f:facet>
+					<h:outputText value="#{c.name}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Manager</f:facet>
+					<h:outputText value="#{c.managername}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Web</f:facet>
+					<h:outputText value="#{c.webpage}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header"></f:facet>
+					<h:link outcome="company.xhtml" value="Details">
+						<f:param name = "compId" value = "#{c.id}" />
+					</h:link>	
+				</h:column>
+			</h:dataTable>
+			<br/>	
+			<h:link value="Add" outcome="companyAdd.xhtml" />
+		</c:when>
+		<c:otherwise>
+			<p>List is empty. Add first company <h:link value="here" outcome="companyAdd.xhtml"/></p>
+		</c:otherwise>
+	</c:choose>
 </h:body>
 </html>

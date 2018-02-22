@@ -7,6 +7,9 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+
+import org.hibernate.exception.ConstraintViolationException;
 
 import com.info.model.Company;
 import com.info.repo.CompanyDao;
@@ -56,15 +59,23 @@ public class CompanyBean {
 		this.company = company;
 	}
 
-	public String addNewCompany(){	
-		companyDao.addCompany(company);
-		//return "companies.xhtml?faces-redirect=true";
+	public String addNewCompany(){
+		try{
+			companyDao.addCompany(company);
+		} catch(ConstraintViolationException cve){
+			FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("nonunique", "1");
+			return "companyAdd.xhtml";
+		} 
 		return "company.xhtml?faces-redirect=true&compId="+company.getId();
 	}
 	
 	public String updateCompany(){
-		companyDao.updateCompany(company);
-		//this.setId(String.valueOf(company.getId()));
+		try{
+			companyDao.updateCompany(company);
+		} catch(ConstraintViolationException cve){
+			FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("nonunique", "1");
+			return "companyEdit.xhtml";
+		}
 		return "company.xhtml?faces-redirect=true&compId="+company.getId();
 	}
 	

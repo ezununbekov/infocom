@@ -1,5 +1,7 @@
 package com.info.model;
 
+import java.util.Date;
+
 import javax.faces.bean.ManagedBean;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,48 +10,36 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-//@Entity
-//@Table(name = "company")
+@Entity
+@Table(name = "company")
 public class Company {
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
-	//@Column
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	//@Column
 	private int ownership;
 	
-	//@Column
 	private int legalform;
 	
-	//@Column
 	private String name;
 	
-	//@Column
 	private String managername;
 	
-	//@Column
 	private String fax;
 	
-	//@Column
 	private String phone;
 	
-	//@Column
 	private String webpage;
 	
-	//@Column
+	@Column(unique=true)
 	private String license;
 	
-	//@Column
-	private String licensedate;
+	private Date licensedate;
 	
-	//@Column
 	private String certificate;
 	
-	//@Column
-	private String certdate;
+	private Date certdate;
 	
-	//@Column
 	private String address;
 
 	public Company() {
@@ -57,7 +47,7 @@ public class Company {
 	}
 
 	public Company(int id, int ownership, int legalform, String name, String managername, String fax, String phone,
-			String webpage, String license, String licensedate, String certificate, String certdate, String address){
+			String webpage, String license, Date licensedate, String certificate, Date certdate, String address){
 		this.id = id;
 		this.ownership = ownership;
 		this.legalform = legalform;
@@ -145,11 +135,11 @@ public class Company {
 		this.license = license;
 	}
 
-	public String getLicensedate() {
+	public Date getLicensedate() {
 		return licensedate;
 	}
 
-	public void setLicensedate(String licensedate) {
+	public void setLicensedate(Date licensedate) {
 		this.licensedate = licensedate;
 	}
 
@@ -161,11 +151,11 @@ public class Company {
 		this.certificate = certificate;
 	}
 
-	public String getCertdate() {
+	public Date getCertdate() {
 		return certdate;
 	}
 
-	public void setCertdate(String certdate) {
+	public void setCertdate(Date certdate) {
 		this.certdate = certdate;
 	}
 

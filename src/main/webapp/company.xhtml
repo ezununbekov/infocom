@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
 	<title>Company</title>
 </h:head>
@@ -19,10 +20,10 @@
 			<h:outputText value="#{companyBean.company.managername}"></h:outputText>
 			
 			<h:outputLabel value = "Ownership" style="font-weight:bold"/>
-			<h:outputText value="#{companyBean.company.ownership}"></h:outputText>
+			<h:outputText value="#{ownership.map[companyBean.company.ownership]}"></h:outputText>
 			
 			<h:outputLabel value = "Legal form" style="font-weight:bold"/>
-			<h:outputText value="#{companyBean.company.legalform}"></h:outputText>
+			<h:outputText value="#{legalform.map[companyBean.company.legalform]}"></h:outputText>
 			
 			<h:outputLabel value = "Fax" style="font-weight:bold"/>
 			<h:outputText value="#{companyBean.company.fax}"></h:outputText>

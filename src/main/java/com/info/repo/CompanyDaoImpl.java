@@ -1,64 +1,124 @@
 package com.info.repo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
+
 import com.info.model.Company;
+import com.info.repo.util.SessionFactoryUtil;
 @Stateless
 public class CompanyDaoImpl implements CompanyDao{
-	private static List<Company> all = new ArrayList<>();
-	static{
-		all.add(new Company(1, 2, 2, "Beeline", "Veon", "fax",
-				"Fon", "wp.com", "lic21", "l-date", "cert", 
-				"cert-date", "adrs"));
-		all.add(new Company(2, 1, 3, "MGCM", "unknwn", "fax2",
-				"Fon2", "megacom.com", "lic24", "l24-date", "cert24", 
-				"cert24-date", "adrs24"));
-	}
-	
-	private Company company;
-	
+	private Session session;
+
 	public Company getCompany(int id){
-		company = new Company();
-		for(Company c : all){
-			if(c.getId() == id){
-				company = c;
-				break;
-			}
+		Company company = null;
+		Transaction transaction = null;
+		try{
+			session = SessionFactoryUtil.buildSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			Query query = session.createQuery("from Company c where c.id = ?");
+			query.setParameter(0, id);
+			company = (Company)query.getSingleResult();
+			transaction.commit();
+		} catch(Exception e){
+			e.printStackTrace();
+			//TODO: add logger
+			if(transaction != null)
+				transaction.rollback();
+		} finally{
+			if(session != null)
+				session.close();
 		}
+		
 		return company;
 	}
 	
 	public List<Company> getAllCompanies(){
-		return all;
+		Transaction transaction = null;
+		List<Company> result = null;
+		try{
+			session = SessionFactoryUtil.buildSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			Query query = session.createQuery("from Company");
+			result = query.list();
+			transaction.commit();
+		} catch(Exception e){
+			e.printStackTrace();
+			//TODO: add logger
+			if(transaction != null)
+				transaction.rollback();
+		} finally{
+			if(session != null)
+				session.close();
+		}
+		return result;
 	}
 	
 	public void addCompany(Company company){
-		for(Company c : all){
-			if(c.getId() == company.getId())
-				return;
+		Transaction transaction = null;
+		try{
+			session = SessionFactoryUtil.buildSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			session.save(company);
+			transaction.commit();
+		} catch (ConstraintViolationException cve){
+			if(transaction != null)
+				transaction.rollback();
+			throw cve;
+		} catch (Exception e){
+			e.printStackTrace();
+			//TODO: add logger
+			if(transaction != null)
+				transaction.rollback();
+		} finally{
+			if(session != null)
+				session.close();
 		}
-		all.add(company);
 	}
 	
 	public void updateCompany(Company company){
-		for(Company c : all){
-			if(c.getId() == company.getId()){
-				all.remove(c);
-				all.add(company);
-				break;
-			}
+		Transaction transaction = null;
+		try{
+			session = SessionFactoryUtil.buildSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			session.update(company);
+			transaction.commit();
+		} catch(Exception e){
+			e.printStackTrace();
+			//TODO: add logger
+			if(transaction != null)
+				transaction.rollback();
+			if(e.getCause().getClass().equals(ConstraintViolationException.class))
+				throw new ConstraintViolationException(e.getCause().getCause().getMessage(), (java.sql.SQLException)e.getCause().getCause(), null);
+		} finally{
+			if(session != null)
+				session.close();
 		}
 	}
 	
 	public void deleteCompany(int id){
-		for(Company c : all){
-			if(c.getId() == id){
-				all.remove(c);
-				break;
-			}
+		Transaction transaction = null;
+		Company company = getCompany(id);
+		try{
+			session = SessionFactoryUtil.buildSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			session.delete(company);
+			transaction.commit();
+		} catch(Exception e){
+			e.printStackTrace();
+			//TODO: add logger
+			if(transaction != null)
+				transaction.rollback();
+		} finally{
+			if(session != null)
+				session.close();
 		}
 	}
 }
