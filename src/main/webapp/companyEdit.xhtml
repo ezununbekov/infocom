@@ -85,7 +85,7 @@
 			<h:outputLabel for = "licdate" value = "License date" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
 			<h:inputText id = "licdate" value="#{companyBean.company.licensedate}"
 				required="true" requiredMessage="License date is required" converter="myDateTimeConverter"
-				converterMessage="Date must be in DDMMYYYY format, like 24022018">
+				converterMessage="Date must be in DDMMYYYY format and cannot be in future">
 			</h:inputText>	
 			<h:message for="licdate" style="color:red"></h:message>	
 			
@@ -97,7 +97,7 @@
 			<h:outputLabel for = "certdate" value = "Certificate date" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
 			<h:inputText id = "certdate" value="#{companyBean.company.certdate}"
 				required="true" requiredMessage="Certificate date is required" converter="myDateTimeConverter"
-				converterMessage="Date must be in DDMMYYYY format, like 24022018">
+				converterMessage="Date must be in DDMMYYYY format and cannot be in future">
 			</h:inputText>	
 			<h:message for="certdate" style="color:red"></h:message>	
 			

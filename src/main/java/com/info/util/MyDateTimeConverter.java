@@ -1,5 +1,9 @@
 package com.info.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
@@ -15,7 +19,17 @@ public class MyDateTimeConverter extends DateTimeConverter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        if (value != null && value.length() != getPattern().length()) {
+    	
+    	SimpleDateFormat sdf = new SimpleDateFormat(getPattern());
+    	
+    	Date d;
+    	try{
+    		d = sdf.parse(value);
+    	} catch(ParseException pe){
+    		d = new Date();
+    	}
+    	
+        if (value != null && (value.length() != getPattern().length() || d.compareTo(new Date())>0)) {
             throw new ConverterException();
         }
 
