@@ -12,7 +12,7 @@ import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
 
 import com.info.model.Company;
-import com.info.repo.util.SessionFactoryUtil;
+import com.info.util.SessionFactoryUtil;
 @Stateless
 public class CompanyDaoImpl implements CompanyDao{
 	private Session session;

@@ -1,5 +1,6 @@
 package com.info.managedbean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -17,23 +18,27 @@ import com.info.repo.CompanyDaoImpl;
 
 @ManagedBean(name="companyBean", eager=true)
 @RequestScoped
-public class CompanyBean {
+public class CompanyBean implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private List<Company> companies;
-
-	private Company company = new Company();
-	
+	private Company company;
 	@ManagedProperty(value = "#{param.compId}")
-	private String id;
+	private Integer id;
 	
+
 	//@EJB
 	CompanyDao companyDao = new CompanyDaoImpl();
 	
-	@PostConstruct
-	public void init(){
-		companies = companyDao.getAllCompanies();
-	}
+//	@PostConstruct
+//	public void init(){
+//		companies = companyDao.getAllCompanies();
+//	}
 	
 	public List<Company> getCompanies() {
+		if(companies == null)
+			companies = companyDao.getAllCompanies();
 		return companies;
 	}
 
@@ -41,17 +46,19 @@ public class CompanyBean {
 		this.companies = companies;
 	}
 	
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	public Company getCompany(){
 		if(id != null)
-			company = companyDao.getCompany(new Integer(id));
+			company = companyDao.getCompany(id);
+		else if(company == null)
+			company = new Company();
 		return company;
 	}
 
@@ -80,7 +87,7 @@ public class CompanyBean {
 	}
 	
 	public String deleteCompany(){
-		companyDao.deleteCompany(new Integer(id));
+		companyDao.deleteCompany(company.getId());
 		return "companies.xhtml?faces-redirect=true";
 	}
 }

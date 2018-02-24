@@ -18,46 +18,61 @@
 	<br/>
 	<h:form>
 		<h:panelGrid columns = "3">
-			<h:outputLabel for = "name" value = "Name" style="font-weight:bold"/>
-			<h:inputText id = "name" value="#{companyBean.company.name}"
-				required="true" requiredMessage="Company name is required"/>
+			<h:outputLabel for = "name" value = "Name" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
+			<h:inputText id = "name" value="#{companyBean.company.name}" required="true" 
+				requiredMessage="Company name is required"
+				validatorMessage="Only letters, digits, spaces, and hyphens allowed">
+				<f:validateRegex pattern="^([a-zA-Z\s\d-]+)$" />
+			</h:inputText>	
 			<h:message for="name" style="color:red"></h:message>		
 		
-			<h:outputLabel for = "manager" value = "Manager" style="font-weight:bold"/>
-			<h:inputText id = "manager" value="#{companyBean.company.managername}"
-				required="true" requiredMessage="Manager name is required"/>
+			<h:outputLabel for = "manager" value = "Manager" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
+			<h:inputText id = "manager" value="#{companyBean.company.managername}" required="true" 
+				requiredMessage="Manager name is required"
+				validatorMessage="Only letters, spaces, and hyphens allowed">
+				<f:validateRegex pattern="^([a-zA-Z\s-]+)$" />
+			</h:inputText>	
 			<h:message for="manager" style="color:red"></h:message>	
 			
-			<h:outputLabel for = "own" value = "Ownership" style="font-weight:bold"/>
+			<h:outputLabel for = "own" value = "Ownership" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
 			<h:selectOneMenu id = "own" value="#{companyBean.company.ownership}"
 				required="true" requiredMessage="Ownership is required">
 				<f:selectItems value = "#{ownership.all}" var="owsh" itemValue="#{owsh.id}" itemLabel = "#{owsh.description}" />
 			</h:selectOneMenu>	
 			<h:message for="own" style="color:red"></h:message>	
 			
-			<h:outputLabel for = "leg" value = "Legal form" style="font-weight:bold"/>
+			<h:outputLabel for = "leg" value = "Legal form" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
 			<h:selectOneMenu id = "leg" value="#{companyBean.company.legalform}"
 				required="true" requiredMessage="Legal form is required">
 				<f:selectItems value="#{legalform.all}" var="frm" itemValue="#{frm.id}" itemLabel="#{frm.description}"/>
-			</h:selectOneMenu>	
+			</h:selectOneMenu>
 			<h:message for="leg" style="color:red"></h:message>	
 			
-			<h:outputLabel for = "fax" value = "Fax" style="font-weight:bold"/>
-			<h:inputText id = "fax" value="#{companyBean.company.fax}"/>
+			<h:outputLabel for = "fax" value = "Fax" style="font-weight:bold"></h:outputLabel>
+			<h:inputText id = "fax" value="#{companyBean.company.fax}" 
+				validatorMessage="Fax must be 12 digits in length">
+				<f:validateRegex pattern="^(?:\d{12}|)$" />
+			</h:inputText>
 			<h:message for="fax" style="color:red"></h:message>
 			
-			<h:outputLabel for = "phone" value = "Phone" style="font-weight:bold"/>
-			<h:inputText id = "phone" value="#{companyBean.company.phone}"
-				required="true" requiredMessage="Phone number is required"/>
+			<h:outputLabel for = "phone" value = "Phone" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
+			<h:inputText id = "phone" value="#{companyBean.company.phone}" required="true" 
+				requiredMessage="Phone number is required" 
+				validatorMessage="Phone must be 12 digits in length">
+				<f:validateRegex pattern="^(\d{12})$" />
+			</h:inputText>	
 			<h:message for="phone" style="color:red"></h:message>	
 			
 			<h:outputLabel for = "web" value = "Web" style="font-weight:bold"/>
-			<h:inputText id = "web" value="#{companyBean.company.webpage}"/>
+			<h:inputText id = "web" value="#{companyBean.company.webpage}"
+				validatorMessage="Example: http://www.mysite.com/about">
+				<f:validateRegex pattern="^(?:(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?|)$" />
+			</h:inputText>	
 			<h:message for="web" style="color:red"></h:message>
 			
-			<h:outputLabel for = "lic" value = "License" style="font-weight:bold"/>
+			<h:outputLabel for = "lic" value = "License" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
 			<h:inputText id = "lic" value="#{companyBean.company.license}"
-				required="true" requiredMessage="License is required"/>
+				required="true" requiredMessage="License is required"/>	
 			<c:choose>
 				<c:when test="#{not empty nonunique}">
 					<h:outputText value="License number is not unique"  style="color:red"/>
@@ -65,28 +80,28 @@
 				<c:otherwise>
 					<h:message for="lic" style="color:red"></h:message>
 				</c:otherwise>
-			</c:choose>	
+			</c:choose>
 			
-			<h:outputLabel for = "licdate" value = "License date" style="font-weight:bold"/>
+			<h:outputLabel for = "licdate" value = "License date" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
 			<h:inputText id = "licdate" value="#{companyBean.company.licensedate}"
-				required="true" requiredMessage="License date is required">
-				<f:convertDateTime type="date" pattern="ddMMyyyy"/>
+				required="true" requiredMessage="License date is required" converter="myDateTimeConverter"
+				converterMessage="Date must be in DDMMYYYY format and cannot be in future">
 			</h:inputText>	
 			<h:message for="licdate" style="color:red"></h:message>	
 			
-			<h:outputLabel for = "cert" value = "Certificate" style="font-weight:bold"/>
+			<h:outputLabel for = "cert" value = "Certificate" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
 			<h:inputText id = "cert" value="#{companyBean.company.certificate}"
 				required="true" requiredMessage="Certificate is required"/>
 			<h:message for="cert" style="color:red"></h:message>	
 			
-			<h:outputLabel for = "certdate" value = "Certificate date" style="font-weight:bold"/>
+			<h:outputLabel for = "certdate" value = "Certificate date" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
 			<h:inputText id = "certdate" value="#{companyBean.company.certdate}"
-				required="true" requiredMessage="Certificate date is required">
-				<f:convertDateTime type="date" pattern="ddMMyyyy"/>
+				required="true" requiredMessage="Certificate date is required" converter="myDateTimeConverter"
+				converterMessage="Date must be in DDMMYYYY format and cannot be in future">
 			</h:inputText>	
 			<h:message for="certdate" style="color:red"></h:message>	
 			
-			<h:outputLabel for = "address" value = "Address" style="font-weight:bold"/>
+			<h:outputLabel for = "address" value = "Address" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
 			<h:inputText id = "address" value="#{companyBean.company.address}"
 				required="true" requiredMessage="Address is required"/>
 			<h:message for="address" style="color:red"></h:message>	

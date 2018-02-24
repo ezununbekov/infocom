@@ -1,5 +1,6 @@
 package com.info.managedbean;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,10 @@ import com.info.repo.LegalformDaoImpl;
 
 @ManagedBean(name="legalform", eager=true)
 @RequestScoped
-public class LegalformBean {
+public class LegalformBean implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private List<Legalform> all;
 	private Legalform form;
 	private Map<Integer, String> map;

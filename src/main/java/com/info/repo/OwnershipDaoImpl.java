@@ -15,7 +15,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import com.info.model.Ownership;
-import com.info.repo.util.SessionFactoryUtil;
+import com.info.util.SessionFactoryUtil;
 
 @SuppressWarnings("deprecation")
 @Stateless
