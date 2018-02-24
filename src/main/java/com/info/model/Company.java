@@ -1,5 +1,6 @@
 package com.info.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
@@ -12,7 +13,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "company")
-public class Company {
+public class Company implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -24,9 +28,9 @@ public class Company {
 	private String name;
 	
 	private String managername;
-	
+
 	private String fax;
-	
+
 	private String phone;
 	
 	private String webpage;
@@ -44,23 +48,6 @@ public class Company {
 
 	public Company() {
 		super();
-	}
-
-	public Company(int id, int ownership, int legalform, String name, String managername, String fax, String phone,
-			String webpage, String license, Date licensedate, String certificate, Date certdate, String address){
-		this.id = id;
-		this.ownership = ownership;
-		this.legalform = legalform;
-		this.name = name;
-		this.managername = managername;
-		this.fax = fax;
-		this.phone = phone;
-		this.webpage = webpage;
-		this.license = license;
-		this.licensedate = licensedate;
-		this.certificate = certificate;
-		this.certdate = certdate;
-		this.address = address;
 	}
 
 	public int getId() {

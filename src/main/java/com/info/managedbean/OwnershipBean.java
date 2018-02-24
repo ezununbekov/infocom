@@ -1,5 +1,6 @@
 package com.info.managedbean;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,10 @@ import com.info.repo.OwnershipDaoImpl;
 
 @ManagedBean(name="ownership", eager=true)
 @RequestScoped
-public class OwnershipBean {
+public class OwnershipBean implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private List<Ownership> all;
 	private Ownership form;
 	private Map<Integer, String> map;

@@ -52,14 +52,14 @@
 			
 			<h:outputLabel value = "Address" style="font-weight:bold"/>
 			<h:outputText value="#{companyBean.company.address}"></h:outputText>
+			
 		</h:panelGrid>
+		<h:inputHidden value="#{companyBean.company.id}"></h:inputHidden>
 		<br/>
 		<h:link value="Edit" outcome="companyEdit.xhtml"><f:param name = "compId" value = "#{companyBean.company.id}" /></h:link>
 		&nbsp;
 		<h:commandButton value="Delete" action="#{companyBean.deleteCompany}" 
-				onclick="if (! confirm('Delete #{companyBean.company.name}?') ) { return false;}; return true; ">
-			<f:param name = "compId" value = "#{companyBean.company.id}" />
-		</h:commandButton>
+				onclick="if (! confirm('Delete #{companyBean.company.name}?') ) { return false;}; return true; "/>
 	</h:form>
 </h:body>
 </html>

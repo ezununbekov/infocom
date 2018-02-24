@@ -1,4 +1,4 @@
-package com.info.repo.util;
+package com.info.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

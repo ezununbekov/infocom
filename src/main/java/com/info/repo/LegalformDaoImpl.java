@@ -15,25 +15,13 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import com.info.model.Legalform;
-import com.info.repo.util.SessionFactoryUtil;
+import com.info.util.SessionFactoryUtil;
 
 @SuppressWarnings("deprecation")
 @Stateless
 public class LegalformDaoImpl implements LegalformDao{
-	
-	//private SessionFactoryUtil sessionFactory = new SessionFactoryUtil();
-	
+
 	private Session session;
-//	private static SessionFactory sessionFactory;
-//	
-//	private static SessionFactory buildSessionFactory(){
-//		Configuration configuration = new Configuration()
-//				.configure("hibernate.cfg.xml").addAnnotatedClass(Legalform.class);
-//		ServiceRegistry serviceRegistry =
-//				new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-//		sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-//		return sessionFactory;
-//	}
 	
 	@Override
 	public Legalform getFormById(int id){
