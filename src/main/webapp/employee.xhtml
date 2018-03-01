@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<title>Employee</title>
+</h:head>
+<h:body>
+	<h2>
+		<h:outputText value="#{employeeBean.employee.name}"></h:outputText>
+	</h2>
+	<h:link value="Employees" outcome="employees.xhtml"><f:param name = "companyId" value = "#{employeeBean.company.id}"/></h:link>
+	<br/>
+	<br/>
+	<h:form>
+		<h:panelGrid columns = "2">
+			<h:outputLabel value = "Position" style="font-weight:bold"/>
+			<h:outputText value="#{employeeBean.employee.position}"></h:outputText>
+			
+			<h:outputLabel value = "Work phone" style="font-weight:bold"/>
+			<h:outputText value="#{employeeBean.employee.workphone}"></h:outputText>
+			
+			<h:outputLabel value = "Mobile phone" style="font-weight:bold"/>
+			<h:outputText value="#{employeeBean.employee.mobilephone}"></h:outputText>
+			
+			<h:outputLabel value = "Home phone" style="font-weight:bold"/>
+			<h:outputText value="#{employeeBean.employee.homephone}"></h:outputText>
+			
+			<h:outputLabel value = "Address" style="font-weight:bold"/>
+			<h:outputText value="#{employeeBean.employee.address}"></h:outputText>
+			
+			<h:outputLabel value = "Email" style="font-weight:bold"/>
+			<h:outputText value="#{employeeBean.employee.email}"></h:outputText>
+			
+			<h:outputLabel value = "Bank" style="font-weight:bold"/>
+			<h:outputText value="#{employeeBean.employee.bankdata}"></h:outputText>
+			
+		</h:panelGrid>
+		<h:inputHidden value="#{employeeBean.employee.id}"></h:inputHidden>
+		<br/>
+ 		    <h:link value="Edit" outcome="employeeEdit.xhtml">
+				<f:param name = "empId" value = "#{employeeBean.employee.id}" />
+				<f:param name = "companyId" value = "#{employeeBean.company.id}" />
+			</h:link> 
+<!--         <h:link value="Edit" outcome="employeeEdit.xhtml?empId=#{employeeBean.employee.id}" /> -->
+		&nbsp;
+		<h:commandButton value="Delete" action="#{employeeBean.deleteEmployee}" 
+				onclick="if (! confirm('Delete #{employeeBean.employee.name}?') ) { return false;}; return true; ">
+			<f:param name = "empId" value = "#{employeeBean.employee.id}" />	
+		</h:commandButton>		
+	</h:form>
+</h:body>
+</html>
