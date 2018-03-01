@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -29,7 +30,7 @@ public class CompanyBean implements Serializable{
 	
 
 	//@EJB
-	CompanyDao companyDao = new CompanyDaoImpl();
+	private CompanyDao companyDao = new CompanyDaoImpl();
 	
 //	@PostConstruct
 //	public void init(){
@@ -87,7 +88,13 @@ public class CompanyBean implements Serializable{
 	}
 	
 	public String deleteCompany(){
-		companyDao.deleteCompany(company.getId());
+		try{
+			companyDao.deleteCompany(company.getId());
+		} catch(ConstraintViolationException cve){
+			//TODO: handle company has employees 
+			return "company.xhtml?faces-redirect=true&compId="+company.getId();
+		}
+		
 		return "companies.xhtml?faces-redirect=true";
 	}
 }

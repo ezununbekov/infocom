@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<title>Edit employee</title>
+</h:head>
+<h:body>
+	<h2>
+		<h:outputText value="Edit employee"/>
+	</h2>
+		<h:link value="Profile" outcome="employee.xhtml?empId=#{employeeBean.employee.id}"/>
+	<br/>
+	<br/>
+	<h:form>
+		<h:panelGrid columns = "3">
+			<h:outputLabel for = "name" value = "Name" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
+			<h:inputText id = "name" value="#{employeeBean.employee.name}" required="true" 
+				requiredMessage="FIO is mandatory"
+				validatorMessage="Only letters, spaces, and hyphens allowed. Length not more than 50 characters">
+				<f:validateRegex pattern="^([a-zA-Z\s-]{1,50})$" />
+			</h:inputText>	
+			<h:message for="name" style="color:red"></h:message>		
+		
+			<h:outputLabel for = "position" value = "Position" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
+			<h:inputText id = "position" value="#{employeeBean.employee.position}" required="true" 
+				requiredMessage="Employee's position is mandatory"
+				validatorMessage="Only letters, spaces, digits, and hyphens allowed. Length not more than 20 characters">
+				<f:validateRegex pattern="^([a-zA-Z\s\d-]{1,20})$" />
+			</h:inputText>	
+			<h:message for="position" style="color:red"></h:message>
+			
+			<h:outputLabel for = "workphone" value = "Work phone" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
+			<h:inputText id = "workphone" value="#{employeeBean.employee.workphone}" required="true" 
+				requiredMessage="Phone number is mandatory" 
+				validatorMessage="Phone must be 12 digits in length">
+				<f:validateRegex pattern="^(\d{12})$" />
+			</h:inputText>	
+			<h:message for="workphone" style="color:red"></h:message>
+			
+			<h:outputLabel for = "mobilephone" value = "Mobile phone" style="font-weight:bold"></h:outputLabel>
+			<h:inputText id = "mobilephone" value="#{employeeBean.employee.mobilephone}" 
+				validatorMessage="Phone must be 12 digits in length">
+				<f:validateRegex pattern="^(?:\d{12}|)$" />
+			</h:inputText>
+			<h:message for="mobilephone" style="color:red"></h:message>
+			
+			<h:outputLabel for = "homephone" value = "Home phone" style="font-weight:bold"></h:outputLabel>
+			<h:inputText id = "homephone" value="#{employeeBean.employee.homephone}" 
+				validatorMessage="Phone must be 12 digits in length">
+				<f:validateRegex pattern="^(?:\d{12}|)$" />
+			</h:inputText>
+			<h:message for="homephone" style="color:red"></h:message>
+			
+			<h:outputLabel for = "email" value = "Email" style="font-weight:bold"/>
+			<h:inputText id = "email" value="#{employeeBean.employee.email}"
+				validatorMessage="Example: mymail@gmail.com">
+				<f:validateRegex pattern="^(?:([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})|)$" />
+			</h:inputText>	
+			<h:message for="email" style="color:red"></h:message>
+			
+			<h:outputLabel for = "address" value = "Address" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
+			<h:inputText id = "address" value="#{employeeBean.employee.address}"
+				required="true" requiredMessage="Address is mandatory" 
+				validatorMessage="Not more than 50 characters!">
+				<f:validateRegex pattern="^(.{1,50})$" />
+			</h:inputText>	
+			<h:message for="address" style="color:red"></h:message>
+			
+			<h:outputLabel for = "bankdata" value = "Bank data" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
+			<h:inputText id = "bankdata" value="#{employeeBean.employee.bankdata}"
+				required="true" requiredMessage="Bank is mandatory" 
+				validatorMessage="Not more than 50 characters!">
+				<f:validateRegex pattern="^(.{1,50})$" />
+			</h:inputText>	
+			<h:message for="bankdata" style="color:red"></h:message>
+			
+		</h:panelGrid>
+		<h:inputHidden value="#{employeeBean.employee.id}"></h:inputHidden>
+		<br/>
+		<h:commandButton value="Update" action="#{employeeBean.updateEmployee}" 
+			onclick="if (! confirm('Update #{employeeBean.employee.name}?') ) { return false;}; return true; ">
+			<f:param name = "companyId" value = "#{employeeBean.company.id}"/>
+		</h:commandButton>	
+	</h:form>
+</h:body>
+</html>

@@ -20,16 +20,16 @@
 			<h:outputLabel for = "name" value = "Name" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
 			<h:inputText id = "name" value="#{companyBean.company.name}" p:placeholder="Name of company" required="true" 
 				requiredMessage="Company name is required"
-				validatorMessage="Only letters, digits, spaces, and hyphens allowed">
-				<f:validateRegex pattern="^([a-zA-Z\s\d-]+)$" />
+				validatorMessage="Only letters, digits, spaces, and hyphens allowed. Length not more than 50 characters">
+				<f:validateRegex pattern="^([a-zA-Z\s\d-]{1,50})$" />
 			</h:inputText>	
 			<h:message for="name" style="color:red"></h:message>		
 		
 			<h:outputLabel for = "manager" value = "Manager" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
 			<h:inputText id = "manager" value="#{companyBean.company.managername}" p:placeholder="Company manager's name" required="true" 
 				requiredMessage="Manager name is required"
-				validatorMessage="Only letters, spaces, and hyphens allowed">
-				<f:validateRegex pattern="^([a-zA-Z\s-]+)$" />
+				validatorMessage="Only letters, spaces, and hyphens allowed. Length not more than 50 characters">
+				<f:validateRegex pattern="^([a-zA-Z\s-]{1,50})$" />
 			</h:inputText>	
 			<h:message for="manager" style="color:red"></h:message>
 			
@@ -70,8 +70,11 @@
 			<h:message for="web" style="color:red"></h:message>
 			
 			<h:outputLabel for = "lic" value = "License" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
-			<h:inputText id = "lic" value="#{companyBean.company.license}" p:placeholder="Unique license number"
-				required="true" requiredMessage="License is required"/>	
+			<h:inputText id = "lic" value="#{companyBean.company.license}"
+				required="true" requiredMessage="License is required"
+				validatorMessage="Not more than 30 characters!">
+				<f:validateRegex pattern="^(.{1,30})$" />
+			</h:inputText>		
 			<c:choose>
 				<c:when test="#{not empty nonunique}">
 					<h:outputText value="License number is not unique"  style="color:red"/>
@@ -90,7 +93,10 @@
 			
 			<h:outputLabel for = "cert" value = "Certificate" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
 			<h:inputText id = "cert" value="#{companyBean.company.certificate}" p:placeholder="Certificate"
-				required="true" requiredMessage="Certificate is required"/>
+				required="true" requiredMessage="Certificate is required" 
+				validatorMessage="Not more than 30 characters!">
+				<f:validateRegex pattern="^(.{1,30})$" />
+			</h:inputText>	
 			<h:message for="cert" style="color:red"></h:message>
 			
 			<h:outputLabel for = "certdate" value = "Certificate date" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
@@ -102,7 +108,10 @@
 			
 			<h:outputLabel for = "address" value = "Address" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
 			<h:inputText id = "address" value="#{companyBean.company.address}" p:placeholder="Address"
-				required="true" requiredMessage="Address is required"/>
+				required="true" requiredMessage="Address is required" 
+				validatorMessage="Not more than 50 characters!">
+				<f:validateRegex pattern="^(.{1,50})$" />
+			</h:inputText>	
 			<h:message for="address" style="color:red"></h:message>
 		</h:panelGrid>
 						

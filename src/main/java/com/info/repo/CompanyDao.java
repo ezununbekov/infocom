@@ -8,9 +8,9 @@ import com.info.model.Company;
 
 @Local
 public interface CompanyDao {
-	Company getCompany(int id);
+	Company getCompany(Integer id);
 	List<Company> getAllCompanies();
 	void addCompany(Company company);
 	void updateCompany(Company company);
-	void deleteCompany(int id);
+	void deleteCompany(Integer id);
 }

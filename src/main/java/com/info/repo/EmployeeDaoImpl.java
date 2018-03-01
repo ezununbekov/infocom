@@ -1,7 +1,5 @@
 package com.info.repo;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -12,41 +10,20 @@ import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
 
 import com.info.model.Company;
+import com.info.model.Employee;
 import com.info.util.SessionFactoryUtil;
-@Stateless
-public class CompanyDaoImpl implements CompanyDao{
-	private Session session;
 
-	public Company getCompany(Integer id){
-		Company company = null;
-		Transaction transaction = null;
-		try{
-			session = SessionFactoryUtil.buildSessionFactory().openSession();
-			transaction = session.beginTransaction();
-			Query query = session.createQuery("from Company c where c.id = ?");
-			query.setParameter(0, id);
-			company = (Company)query.getSingleResult();
-			transaction.commit();
-		} catch(Exception e){
-			e.printStackTrace();
-			//TODO: add logger
-			if(transaction != null)
-				transaction.rollback();
-		} finally{
-			if(session != null)
-				session.close();
-		}
-		
-		return company;
-	}
+@Stateless
+public class EmployeeDaoImpl implements EmployeeDao {
+	private Session session;
 	
-	public List<Company> getAllCompanies(){
+	public List<Employee> getAllEmployees(Integer compId){
 		Transaction transaction = null;
-		List<Company> result = null;
+		List<Employee> result = null;
 		try{
 			session = SessionFactoryUtil.buildSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Query query = session.createQuery("from Company");
+			Query query = session.createQuery("from Employee e where e.company.id = ?").setParameter(0, compId);
 			result = query.list();
 			transaction.commit();
 		} catch(Exception e){
@@ -61,18 +38,39 @@ public class CompanyDaoImpl implements CompanyDao{
 		return result;
 	}
 	
-	public void addCompany(Company company){
+	public Employee getEmployee(Integer empId){
+		Employee employee = null;
 		Transaction transaction = null;
 		try{
 			session = SessionFactoryUtil.buildSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			session.save(company);
+			Query query = session.createQuery("from Employee e where e.id = ?").setParameter(0, empId);
+			employee = (Employee)query.getSingleResult();
 			transaction.commit();
-		} catch (ConstraintViolationException cve){
+		} catch(Exception e){
+			e.printStackTrace();
+			//TODO: add logger
 			if(transaction != null)
 				transaction.rollback();
-			throw cve;
-		} catch (Exception e){
+		} finally{
+			if(session != null)
+				session.close();
+		}
+		return employee;
+	}
+	
+	public void addEmployee(Employee emp, Integer compId){
+		Transaction transaction = null;
+		try{
+			session = SessionFactoryUtil.buildSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			Company comp = session.load(Company.class, compId);
+			emp.setCompany(comp);
+			comp.getEmployees().add(emp);
+			session.update(comp);
+			session.save(emp);
+			transaction.commit();
+		} catch(Exception e){
 			e.printStackTrace();
 			//TODO: add logger
 			if(transaction != null)
@@ -83,41 +81,40 @@ public class CompanyDaoImpl implements CompanyDao{
 		}
 	}
 	
-	public void updateCompany(Company company){
+	public void updateEmployee(Employee emp, Integer compId){
 		Transaction transaction = null;
 		try{
 			session = SessionFactoryUtil.buildSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			session.update(company);
+			Company comp = session.load(Company.class, compId);
+			emp.setCompany(comp);
+			session.update(comp);
+			session.update(emp);
 			transaction.commit();
 		} catch(Exception e){
 			e.printStackTrace();
 			//TODO: add logger
 			if(transaction != null)
 				transaction.rollback();
-			if(e.getCause().getClass().equals(ConstraintViolationException.class))
-				throw new ConstraintViolationException(e.getCause().getCause().getMessage(), (java.sql.SQLException)e.getCause().getCause(), null);
 		} finally{
 			if(session != null)
 				session.close();
 		}
 	}
 	
-	public void deleteCompany(Integer id){
+	public void deleteEmployee(Integer empId){
 		Transaction transaction = null;
-		Company company = getCompany(id);
+		Employee employee = getEmployee(empId);
 		try{
 			session = SessionFactoryUtil.buildSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			session.delete(company);
+			session.delete(employee);
 			transaction.commit();
 		} catch(Exception e){
 			e.printStackTrace();
 			//TODO: add logger
 			if(transaction != null)
 				transaction.rollback();
-			if(e.getCause().getClass().equals(ConstraintViolationException.class))
-				throw new ConstraintViolationException(e.getCause().getCause().getMessage(), (java.sql.SQLException)e.getCause().getCause(), null);
 		} finally{
 			if(session != null)
 				session.close();
