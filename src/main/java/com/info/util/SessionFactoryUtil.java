@@ -7,6 +7,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import com.info.model.Company;
 import com.info.model.Employee;
+import com.info.model.File;
 import com.info.model.Legalform;
 import com.info.model.Ownership;
 
@@ -20,7 +21,8 @@ public class SessionFactoryUtil {
 				.configure("hibernate.cfg.xml").addAnnotatedClass(Legalform.class)
 											   .addAnnotatedClass(Ownership.class)
 											   .addAnnotatedClass(Company.class)
-											   .addAnnotatedClass(Employee.class);
+											   .addAnnotatedClass(Employee.class)
+											   .addAnnotatedClass(File.class);
 		ServiceRegistry serviceRegistry =
 				new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 		sessionFactory = configuration.buildSessionFactory(serviceRegistry);

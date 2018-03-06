@@ -12,7 +12,11 @@
 	<h2>
 		<h:outputText value="Edit employee"/>
 	</h2>
-		<h:link value="Profile" outcome="employee.xhtml?empId=#{employeeBean.employee.id}"/>
+		<h:link value="Profile" outcome="employee.xhtml?empId=#{employeeBean.employee.id}&amp;companyId=#{employeeBean.company.id}"/>
+<!-- 		<h:link value="Profile" outcome="employee.xhtml"> -->
+<!-- 			<f:param name="empId" value="#{employeeBean.employee.id}"/> -->
+<!-- 			<f:param name="companyId" value="#{employeeBean.company.id}"/> -->
+<!-- 		</h:link> -->
 	<br/>
 	<br/>
 	<h:form>

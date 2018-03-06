@@ -15,6 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name = "company")
 public class Company implements Serializable {
@@ -25,8 +28,13 @@ public class Company implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@OneToMany(mappedBy="company")
+	@OneToMany(mappedBy="company", cascade = CascadeType.REMOVE)
+	@OnDelete(action=OnDeleteAction.CASCADE)
 	private Set<Employee> employees;
+	
+	@OneToMany(mappedBy="company", cascade = CascadeType.REMOVE)
+	@OnDelete(action=OnDeleteAction.CASCADE)
+	private Set<File> files;
 	
 	private int ownership;
 	
@@ -167,5 +175,13 @@ public class Company implements Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public Set<File> getFiles() {
+		return files;
+	}
+
+	public void setFiles(Set<File> files) {
+		this.files = files;
 	}
 }
