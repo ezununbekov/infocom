@@ -16,53 +16,98 @@
 	<br/>
 	<br/>
 	<h:form>
-		<h:panelGrid columns = "2">
+		<h:panelGrid columns = "3">
 			<h:outputLabel value = "Manager" style="font-weight:bold"/>
 			<h:outputText value="#{companyBean.company.managername}"></h:outputText>
+			<h:outputText/>
 			
 			<h:outputLabel value = "Ownership" style="font-weight:bold"/>
 			<h:outputText value="#{ownership.map[companyBean.company.ownership]}"></h:outputText>
+			<h:outputText/>
 			
 			<h:outputLabel value = "Legal form" style="font-weight:bold"/>
 			<h:outputText value="#{legalform.map[companyBean.company.legalform]}"></h:outputText>
+			<h:outputText/>
 			
 			<h:outputLabel value = "Fax" style="font-weight:bold"/>
 			<h:outputText value="#{companyBean.company.fax}"></h:outputText>
+			<h:outputText/>
 			
 			<h:outputLabel value = "Phone" style="font-weight:bold"/>
 			<h:outputText value="#{companyBean.company.phone}"></h:outputText>
+			<h:outputText/>
 			
 			<h:outputLabel value = "Web" style="font-weight:bold"/>
 			<h:outputText value="#{companyBean.company.webpage}"></h:outputText>
+			<h:outputText/>
 			
 			<h:outputLabel value = "License" style="font-weight:bold"/>
 			<h:outputText value="#{companyBean.company.license}"></h:outputText>
+			<h:outputText/>
 			
 			<h:outputLabel value = "License date" style="font-weight:bold"/>
 			<h:outputText value="#{companyBean.company.licensedate}">
 				<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
 			</h:outputText>
+			<h:outputText/>
 			
 			<h:outputLabel value = "Certificate" style="font-weight:bold"/>
 			<h:outputText value="#{companyBean.company.certificate}"></h:outputText>
+			<h:outputText/>
 			
 			<h:outputLabel value = "Certificate date" style="font-weight:bold"/>
 			<h:outputText value="#{companyBean.company.certdate}">
 				<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
 			</h:outputText>
+			<h:outputText/>
 			
 			<h:outputLabel value = "Address" style="font-weight:bold"/>
 			<h:outputText value="#{companyBean.company.address}"></h:outputText>
+			<h:outputText/>
+			
+			<c:if test="#{not empty fileBean.files}">
+				<c:forEach var="f" items="#{fileBean.files}" varStatus="status">
+					<c:choose>
+						<c:when test="#{status.first}">
+							<h:outputLabel value = "Files" style="font-weight:bold"/>
+						</c:when>
+						<c:otherwise>
+							<h:outputLabel value = ""/>
+						</c:otherwise>
+					</c:choose>							
+					<h:commandLink value="#{f.name}" actionListener="#{fileBean.downloadFile}">
+						<f:param name="fileId" value="#{f.id}" />
+						<f:param name="compId" value="#{companyBean.company.id}" />
+					</h:commandLink>
+					<h:commandLink value="Delete" actionListener="#{fileBean.deleteFile}"
+						onclick="if (! confirm('Delete file?') ) { return false;}; return true; ">
+						<f:param name="fileId" value="#{f.id}" />
+						<f:param name="compId" value="#{companyBean.company.id}" />
+					</h:commandLink>
+				</c:forEach>
+			</c:if>
 			
 		</h:panelGrid>
-		<h:inputHidden value="#{companyBean.company.id}"></h:inputHidden>
+		</h:form>
 		<br/>
 		<h:link value="Employees" outcome="employees.xhtml"><f:param name = "companyId" value = "#{companyBean.company.id}" /></h:link>
 		&nbsp;
 		<h:link value="Edit" outcome="companyEdit.xhtml"><f:param name = "compId" value = "#{companyBean.company.id}" /></h:link>
-		&nbsp;
-		<h:commandButton value="Delete" action="#{companyBean.deleteCompany}" 
-				onclick="if (! confirm('Delete #{companyBean.company.name}?') ) { return false;}; return true; "/>			
-	</h:form>
+		<br/>
+		<br/>
+	<h:form>
+		<h:inputHidden value="#{companyBean.company.id}"></h:inputHidden>	
+		<h:commandButton value="Delete company" action="#{companyBean.deleteCompany}" 
+				onclick="if (! confirm('Delete #{companyBean.company.name}?') ) { return false;}; return true; "/>
+ 	</h:form>
+ 	<br/>
+ 	<h:form id="uploadForm" enctype="multipart/form-data">
+<!--  		<h:inputHidden value="#{fileBean.company.id}"></h:inputHidden> -->
+ 		<h:inputFile id="fileToUpload" value="#{fileBean.part}" />
+ 		<br/>
+ 		<h:commandButton value="Upload file" actionListener="#{fileBean.uploadFile}">
+ 			<f:param name="compId" value="#{companyBean.company.id}"/>
+ 		</h:commandButton>
+ 	</h:form>
 </h:body>
 </html>
