@@ -3,9 +3,8 @@ package com.info.managedbean;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
+import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -15,7 +14,6 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import com.info.model.Company;
 import com.info.repo.CompanyDao;
-import com.info.repo.CompanyDaoImpl;
 
 
 /**
@@ -45,12 +43,12 @@ public class CompanyBean implements Serializable{
 	@ManagedProperty(value = "#{param.compId}")
 	private Integer id;
 	
-
-	//@EJB
 	/**
 	 * Provider of DAO methods for company.
 	 */
-	private CompanyDao companyDao = new CompanyDaoImpl();
+	
+	@EJB
+	private CompanyDao companyDao;
 	
 	/**
 	 * Default constructor.
@@ -122,9 +120,18 @@ public class CompanyBean implements Serializable{
 		try{
 			companyDao.addCompany(company);
 		} catch(ConstraintViolationException cve){
+			cve.printStackTrace();
 			FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("nonunique", "1");
 			return "companyAdd.xhtml";
-		} 
+		} catch(EJBException ejbe){
+			ejbe.printStackTrace();
+			if(ejbe.getCause().getClass().equals(ConstraintViolationException.class))
+				FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("nonunique", "1");
+			return "companyAdd.xhtml";	
+		} catch(Exception e){
+			e.printStackTrace();
+			return "companyAdd.xhtml";
+		}
 		return "company.xhtml?faces-redirect=true&compId="+company.getId();
 	}
 	
@@ -137,7 +144,16 @@ public class CompanyBean implements Serializable{
 		try{
 			companyDao.updateCompany(company);
 		} catch(ConstraintViolationException cve){
+			cve.printStackTrace();
 			FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("nonunique", "1");
+			return "companyEdit.xhtml";
+		} catch(EJBException ejbe){
+			ejbe.printStackTrace();
+			if(ejbe.getCause().getClass().equals(ConstraintViolationException.class))
+				FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("nonunique", "1");
+			return "companyEdit.xhtml";
+		} catch(Exception e){
+			e.printStackTrace();
 			return "companyEdit.xhtml";
 		}
 		return "company.xhtml?faces-redirect=true&compId="+company.getId();

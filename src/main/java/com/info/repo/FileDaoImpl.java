@@ -2,6 +2,8 @@ package com.info.repo;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -13,6 +15,7 @@ import com.info.util.SessionFactoryUtil;
 /**
  * Implementation of {@link com.info.repo.FileDao}.
  */
+@Stateless
 public class FileDaoImpl implements FileDao {
 	/**
 	 * The main runtime interface between a Java application and Hibernate.

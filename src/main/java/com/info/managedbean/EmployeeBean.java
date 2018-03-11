@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -11,9 +12,7 @@ import javax.faces.bean.RequestScoped;
 import com.info.model.Company;
 import com.info.model.Employee;
 import com.info.repo.CompanyDao;
-import com.info.repo.CompanyDaoImpl;
 import com.info.repo.EmployeeDao;
-import com.info.repo.EmployeeDaoImpl;
 
 
 /**
@@ -58,12 +57,14 @@ public class EmployeeBean implements Serializable{
 	/**
 	 * Provider of DAO methods for employee.
 	 */
-	private EmployeeDao employeeDao = new EmployeeDaoImpl();
+	@EJB
+	private EmployeeDao employeeDao;
 	
 	/**
 	 * Provider of DAO methods for company.
 	 */
-	private CompanyDao companyDao = new CompanyDaoImpl();
+	@EJB
+	private CompanyDao companyDao;
 	
 	/**
 	 * Default constructor.

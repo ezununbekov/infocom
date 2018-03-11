@@ -1,7 +1,5 @@
 package com.info.repo;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -9,8 +7,6 @@ import javax.ejb.Stateless;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.exception.ConstraintViolationException;
 
 import com.info.model.Company;
@@ -101,6 +97,7 @@ public class CompanyDaoImpl implements CompanyDao{
 			//TODO: add logger
 			if(transaction != null)
 				transaction.rollback();
+			throw e;
 		} finally{
 			if(session != null)
 				session.close();
