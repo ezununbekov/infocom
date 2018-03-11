@@ -10,13 +10,24 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.DateTimeConverter;
 import javax.faces.convert.FacesConverter;
 
+/**
+ * Custom DateTimeConverter which is used in view to convert user input from text to date format
+ * and to make some validation.
+ */
 @FacesConverter("myDateTimeConverter")
 public class MyDateTimeConverter extends DateTimeConverter {
 
+	/**
+	 * Constructor which sets pattern to match against.
+	 */
     public MyDateTimeConverter() {
         setPattern("ddMMyyyy");
     }
 
+    /**
+     * Method inherited from {@link javax.faces.convert.DateTimeConverter}
+     * and customized here to validate user input. 
+     */
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
     	

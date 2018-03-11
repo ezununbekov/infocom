@@ -10,9 +10,20 @@ import com.info.model.Company;
 import com.info.model.File;
 import com.info.util.SessionFactoryUtil;
 
+/**
+ * Implementation of {@link com.info.repo.FileDao}.
+ */
 public class FileDaoImpl implements FileDao {
+	/**
+	 * The main runtime interface between a Java application and Hibernate.
+	 */
 	private Session session;
 	
+	/**
+	 * Gets {@link com.info.model.File} by its {@link com.info.model.File#id}.
+	 * @param fileId id of file.
+	 * @return {@link com.info.model.File} by its {@link com.info.model.File#id}.
+	 */
 	public File getFile(Integer fileId){
 		Transaction transaction = null;
 		File file = null;
@@ -34,6 +45,12 @@ public class FileDaoImpl implements FileDao {
 		return file;
 	}
 	
+	/**
+	 * Gets all {@link com.info.model.File}s contained in {@link com.info.model.Company}
+	 * by {@link com.info.model.Company#id}.
+	 * @param compId id of company.
+	 * @return List of all {@link com.info.model.File}s contained in {@link com.info.model.Company}.
+	 */
 	public List<File> getAllFiles(Integer compId){
 		Transaction transaction = null;
 		List<File> files = null;
@@ -55,6 +72,12 @@ public class FileDaoImpl implements FileDao {
 		return files;
 	}
 	
+	/**
+	 * Adds {@link com.info.model.File} to {@link com.info.model.Company} by 
+	 * {@link com.info.model.Company#id}.
+	 * @param file {@link com.info.model.File} to be stored.
+	 * @param compId id of {@link com.info.model.Company} where file will be contained.
+	 */
 	public void addFile(File file, Integer compId){
 		Transaction transaction = null;
 		try{
@@ -77,6 +100,10 @@ public class FileDaoImpl implements FileDao {
 		}
 	}
 	
+	/**
+	 * Deletes {@link com.info.model.File} from database.
+	 * @param fileId {@link com.info.model.File#id} of {@link com.info.model.File} to be deleted.
+	 */
 	public void deleteFile(Integer fileId){
 		Transaction transaction = null;
 		File file = getFile(fileId);
