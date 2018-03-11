@@ -4,7 +4,8 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
 <h:head>
 	<title>New company</title>
 </h:head>
@@ -70,7 +71,7 @@
 			<h:message for="web" style="color:red"></h:message>
 			
 			<h:outputLabel for = "lic" value = "License" style="font-weight:bold"><span style="color:red">*</span></h:outputLabel>
-			<h:inputText id = "lic" value="#{companyBean.company.license}"
+			<h:inputText id = "lic" value="#{companyBean.company.license}" p:placeholder = "Unique license number"
 				required="true" requiredMessage="License is required"
 				validatorMessage="Not more than 30 characters!">
 				<f:validateRegex pattern="^(.{1,30})$" />

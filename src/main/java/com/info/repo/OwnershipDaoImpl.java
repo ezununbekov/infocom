@@ -17,12 +17,22 @@ import org.hibernate.service.ServiceRegistry;
 import com.info.model.Ownership;
 import com.info.util.SessionFactoryUtil;
 
+/**
+ * Implementation of {@link com.info.repo.OwnershipDao}.
+ */
 @SuppressWarnings("deprecation")
 @Stateless
 public class OwnershipDaoImpl implements OwnershipDao{
-	
+	/**
+	 * The main runtime interface between a Java application and Hibernate.
+	 */
 	private Session session;
 	
+	/**
+	 * Gets {@link com.info.model.Ownership} by its {@link com.info.model.Ownership#id}.
+	 * @param id id of ownership form.
+	 * @return {@link com.info.model.Ownership} by its {@link com.info.model.Ownership#id}.
+	 */
 	@Override
 	public Ownership getFormById(int id){
 		Ownership form = null;
@@ -46,6 +56,10 @@ public class OwnershipDaoImpl implements OwnershipDao{
 		return form;
 	}
 	
+	/**
+	 * Gets all {@link com.info.model.Ownership}s stored in database.
+	 * @return List of all {@link com.info.model.Ownership}s stored in database.
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Ownership> getAllForms(){
 		Transaction transaction = null;

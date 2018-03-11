@@ -12,6 +12,9 @@ import com.info.model.Legalform;
 import com.info.model.Ownership;
 
 public class SessionFactoryUtil {
+	/**
+	 * Factory for {@link org.hibernate.Session}
+	 */
 	private static SessionFactory sessionFactory;
 	
 	private SessionFactoryUtil(){}
@@ -28,6 +31,10 @@ public class SessionFactoryUtil {
 		sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 	}
 	
+	/**
+	 * Gets single instance of {@link #sessionFactory}.
+	 * @return single instance of {@link #sessionFactory}.
+	 */
 	public static SessionFactory buildSessionFactory(){
 		return sessionFactory;
 	}

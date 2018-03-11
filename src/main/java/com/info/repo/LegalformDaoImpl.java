@@ -17,12 +17,22 @@ import org.hibernate.service.ServiceRegistry;
 import com.info.model.Legalform;
 import com.info.util.SessionFactoryUtil;
 
+/**
+ * Implementation of {@link com.info.repo.LegalformDao}.
+ */
 @SuppressWarnings("deprecation")
 @Stateless
 public class LegalformDaoImpl implements LegalformDao{
-
+	/**
+	 * The main runtime interface between a Java application and Hibernate.
+	 */
 	private Session session;
 	
+	/**
+	 * Gets {@link com.info.model.Legalform} by its {@link com.info.model.Legalform#id}.
+	 * @param id id of legal form.
+	 * @return {@link com.info.model.Legalform} by its {@link com.info.model.Legalform#id}.
+	 */
 	@Override
 	public Legalform getFormById(int id){
 		Legalform form = null;
@@ -46,6 +56,10 @@ public class LegalformDaoImpl implements LegalformDao{
 		return form;
 	}
 	
+	/**
+	 * Gets all {@link com.info.model.Legalform}s stored in database.
+	 * @return List of all {@link com.info.model.Legalform}s stored in database.
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Legalform> getAllForms(){
 		Transaction transaction = null;
