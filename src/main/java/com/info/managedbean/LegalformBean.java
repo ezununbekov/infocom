@@ -11,7 +11,6 @@ import javax.faces.bean.RequestScoped;
 
 import com.info.model.Legalform;
 import com.info.repo.LegalformDao;
-import com.info.repo.LegalformDaoImpl;
 
 /**
  * Managed bean for handling legal form info. This class is only used to get list of all possible
@@ -39,8 +38,8 @@ public class LegalformBean implements Serializable{
 	/**
 	 * Provider of DAO methods for legal forms.
 	 */
-	//@EJB
-	private LegalformDao legalDao = new LegalformDaoImpl();
+	@EJB
+	private LegalformDao legalDao;
 	
 	/**
 	 * Default constructor.

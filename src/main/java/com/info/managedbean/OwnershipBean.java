@@ -11,7 +11,6 @@ import javax.faces.bean.RequestScoped;
 
 import com.info.model.Ownership;
 import com.info.repo.OwnershipDao;
-import com.info.repo.OwnershipDaoImpl;
 
 /**
  * Managed bean for handling ownership form info. This class is only used to get list of all possible
@@ -39,8 +38,8 @@ public class OwnershipBean implements Serializable{
 	/**
 	 * Provider of DAO methods for ownership forms.
 	 */
-	//@EJB
-	private OwnershipDao ownDao = new OwnershipDaoImpl();
+	@EJB
+	private OwnershipDao ownDao;
 	
 	/**
 	 * Default constructor.

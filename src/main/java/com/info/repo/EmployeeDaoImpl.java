@@ -7,7 +7,6 @@ import javax.ejb.Stateless;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.exception.ConstraintViolationException;
 
 import com.info.model.Company;
 import com.info.model.Employee;

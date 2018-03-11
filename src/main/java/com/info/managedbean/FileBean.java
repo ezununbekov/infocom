@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -19,9 +20,7 @@ import org.apache.commons.io.IOUtils;
 import com.info.model.Company;
 import com.info.model.File;
 import com.info.repo.CompanyDao;
-import com.info.repo.CompanyDaoImpl;
 import com.info.repo.FileDao;
-import com.info.repo.FileDaoImpl;
 
 /**
  * Managed bean for handling file information.
@@ -69,12 +68,14 @@ public class FileBean implements Serializable{
 	/**
 	 * Provider of DAO methods for file.
 	 */
-	private FileDao fileDao = new FileDaoImpl();
+	@EJB
+	private FileDao fileDao;
 	
 	/**
 	 * Provider of DAO methods for company.
 	 */
-	private CompanyDao companyDao = new CompanyDaoImpl();
+	@EJB
+	private CompanyDao companyDao;
 	
 	/**
 	 * Default constructor.
